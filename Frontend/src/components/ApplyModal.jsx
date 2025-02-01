@@ -77,7 +77,7 @@ const ApplyModal = ({
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center"
+          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center cursor-pointer"
         >
           {loading ? <div className="loader"></div> : "Continue"}
         </button>

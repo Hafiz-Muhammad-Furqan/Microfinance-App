@@ -1,7 +1,7 @@
 import React from "react";
 import { CreditCard, Clock, CheckCircle, XCircle } from "lucide-react";
 
-export function Overview({ loanStats }) {
+const Overview = ({ loanStats }) => {
   const stats = [
     {
       title: "Total Applications",
@@ -50,4 +50,6 @@ export function Overview({ loanStats }) {
       })}
     </div>
   );
-}
+};
+
+export default Overview;

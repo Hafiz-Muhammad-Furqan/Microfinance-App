@@ -12,7 +12,7 @@ const Hero = ({ onApplyClick }) => {
         </p>
         <button
           onClick={onApplyClick}
-          className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-all"
+          className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-all cursor-pointer"
         >
           Apply Now
         </button>

@@ -1,0 +1,89 @@
+import loanModel from "../models/loanModel.js";
+import jwt from "jsonwebtoken";
+
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (email === "iamadmin@gmail.com" && password === "adminpassword") {
+      const token = jwt.sign({ email: email }, process.env.JWT_SECRET);
+      res.json({ token });
+      return;
+    } else {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+const verifyAdmin = async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    if (user.email === "iamadmin@gmail.com") {
+      return res.json({ message: "Admin authorized" });
+    } else {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+const getLoanRequests = async (req, res) => {
+  console.log("chaka");
+
+  try {
+    const loans = await loanModel.find();
+    if (loans.length === 0) {
+      return res.status(404).json({ message: "No loans found" });
+    }
+    res.status(200).json(loans);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+const loanAccept = async (req, res) => {
+  try {
+    const { loanId } = req.body;
+    const loanStatus = await loanModel.findByIdAndUpdate(
+      loanId,
+      { status: "Accepted" },
+      { new: true }
+    );
+    if (!loanStatus) {
+      return res.status(404).json({ message: "Loan not found" });
+    }
+    res.status(200).json(loanStatus);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+const loanReject = async (req, res) => {
+  try {
+    const { loanId } = req.body;
+    const loanStatus = await loanModel.findByIdAndUpdate(
+      loanId,
+      { status: "rejected" },
+      { new: true }
+    );
+    if (!loanStatus) {
+      return res.status(404).json({ message: "Loan not found" });
+    }
+    res.status(200).json(loanStatus);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export { loanAccept, loanReject, getLoanRequests, login, verifyAdmin };

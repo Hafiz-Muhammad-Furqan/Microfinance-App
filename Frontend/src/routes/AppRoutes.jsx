@@ -1,7 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
 import ProtectedRouteWrapper from "./ProtectedRouteWrapper";
-import { Dashboard } from "../components/DashBoard";
+import UserDashboard from "../pages/UserDashboard";
+import AdminDashboard from "../pages/AdminDashboard";
+import AdminLogin from "../components/AdminLogin";
+import AdminProtectedRoute from "./AdminProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -11,10 +14,22 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <ProtectedRouteWrapper>
-        <Dashboard />
-      </ProtectedRouteWrapper>
+      // <ProtectedRouteWrapper>
+      <UserDashboard />
+      // </ProtectedRouteWrapper>
     ),
+  },
+  {
+    path: "/admin/dashboard",
+    element: (
+      <AdminProtectedRoute>
+        <AdminDashboard />
+      </AdminProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin/login",
+    element: <AdminLogin />,
   },
 ]);
 const AppRoutes = () => {

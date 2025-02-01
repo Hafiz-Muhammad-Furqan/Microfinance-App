@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Overview } from "./Overview";
-import { LoanTable } from "./LoanTable";
+import Overview from "../components/Overview";
+import LoanTable from "../components/LoanTable";
 import showToast from "../utils/Toast";
 import axios from "axios";
-import { LoanDetailsModal } from "./LoanDetailsModal";
+import LoanDetailsModal from "../components/LoanDetailsModal";
 import { Link } from "react-router-dom";
 
-export function Dashboard() {
+const UserDashboard = () => {
   const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedLoan, setSelectedLoan] = useState(null);
@@ -68,7 +68,7 @@ export function Dashboard() {
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="w-full flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 ">Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900 ">UserDashboard</h1>
           <button className="bg-white text-blue-600 px-4 py-2 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-all">
             <Link to={"/"}> Go To Home</Link>
           </button>
@@ -91,4 +91,6 @@ export function Dashboard() {
       </div>
     </div>
   );
-}
+};
+
+export default UserDashboard;

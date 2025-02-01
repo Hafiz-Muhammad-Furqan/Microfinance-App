@@ -13,3 +13,21 @@
     transform: rotate(1turn);
   }
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 100px;
+}
+
+/* .hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  background-color: burlywood;
+} */
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

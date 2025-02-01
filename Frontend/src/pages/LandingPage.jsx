@@ -53,6 +53,7 @@ const LandingPage = () => {
       const errorMsg = error?.response?.data?.message || "Something went wrong";
       showToast("error", errorMsg);
       setLoading(false);
+      console.log(error.message);
     }
   };
 
