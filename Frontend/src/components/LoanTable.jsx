@@ -1,5 +1,5 @@
 import React from "react";
-import { Eye, ChevronLeft, ChevronRight } from "lucide-react";
+import { Eye } from "lucide-react";
 
 const LoanTable = ({ loans, onViewDetails }) => {
   const StatusBadge = ({ status }) => {
@@ -68,10 +68,10 @@ const LoanTable = ({ loans, onViewDetails }) => {
                     {loan?.paidamount ?? "00"}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium cursor-pointer">
                   <button
                     onClick={() => onViewDetails(loan)}
-                    className="text-blue-600 hover:text-blue-900 flex items-center cursor-pointer"
+                    className="text-blue-600 hover:text-blue-900 flex items-center "
                   >
                     <Eye className="w-4 h-4 mr-1" />
                     View Details

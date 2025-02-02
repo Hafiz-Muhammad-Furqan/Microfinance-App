@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (email === "iamadmin@gmail.com" && password === "adminpassword") {
+    if (email === process.env.Email && password === process.env.Password) {
       const token = jwt.sign({ email: email }, process.env.JWT_SECRET);
       res.json({ token });
       return;
@@ -36,13 +36,13 @@ const verifyAdmin = async (req, res) => {
 };
 
 const getLoanRequests = async (req, res) => {
-  console.log("chaka");
-
   try {
-    const loans = await loanModel.find();
+    const loans = await loanModel.find().populate("user");
+
     if (loans.length === 0) {
       return res.status(404).json({ message: "No loans found" });
     }
+
     res.status(200).json(loans);
   } catch (error) {
     console.error(error);

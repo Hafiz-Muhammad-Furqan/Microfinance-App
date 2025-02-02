@@ -4,15 +4,15 @@ import { Eye, Calendar } from "lucide-react";
 const ApplicationsTable = ({ applications, onViewDetails }) => {
   const StatusBadge = ({ status }) => {
     const styles = {
-      pending: "bg-yellow-100 text-yellow-800",
-      approved: "bg-green-100 text-green-800",
-      rejected: "bg-red-100 text-red-800",
+      Pending: "bg-yellow-100 text-yellow-800",
+      Approved: "bg-green-100 text-green-800",
+      Rejected: "bg-red-100 text-red-800",
     };
 
     return (
       <span
         className={`px-3 py-1 rounded-full text-sm font-medium ${
-          styles[status.toLowerCase()]
+          styles[status] || "bg-gray-100 text-gray-800"
         }`}
       >
         {status}
@@ -32,13 +32,7 @@ const ApplicationsTable = ({ applications, onViewDetails }) => {
               Loan Details
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              City
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Status
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Submitted
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Actions
@@ -47,32 +41,25 @@ const ApplicationsTable = ({ applications, onViewDetails }) => {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {applications.map((application) => (
-            <tr key={application.id} className="hover:bg-gray-50">
+            <tr key={application._id} className="hover:bg-gray-50">
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm font-medium text-gray-900">
-                  {application.applicantName}
+                  {application.user.fullname}
                 </div>
-                <div className="text-sm text-gray-500">{application.cnic}</div>
+                <div className="text-sm text-gray-500">
+                  {application.user.cnic}
+                </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-900">
-                  {application.loanType} - {application.subtype}
+                  {application.loanCategory} - {application.subCategory}
                 </div>
                 <div className="text-sm text-gray-500">
-                  PKR {application.amount.toLocaleString()}
+                  PKR {application.loanAmount.toLocaleString()}
                 </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {application.city}
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <StatusBadge status={application.status} />
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="flex items-center text-sm text-gray-500">
-                  <Calendar className="w-4 h-4 mr-1" />
-                  {application.submittedAt}
-                </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <button
