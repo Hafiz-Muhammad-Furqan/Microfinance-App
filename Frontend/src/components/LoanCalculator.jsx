@@ -144,7 +144,7 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
             </div>
 
             <button
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all flex items-center justify-center"
+              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all flex items-center justify-center cursor-pointer"
               onClick={LoanRequest}
               disabled={loading}
             >

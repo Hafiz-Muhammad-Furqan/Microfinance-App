@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import LoanCategories from "../components/LoanCategories";
@@ -13,6 +13,7 @@ import { useAuth } from "../context/UserContext";
 
 const LandingPage = () => {
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
+  const [token, setToken] = useState(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [loanCategory, setLoanCategory] = useState("Business");
   const [loading, setLoading] = useState(false);
@@ -81,6 +82,15 @@ const LandingPage = () => {
     }
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setToken(token);
+    } else {
+      setToken(null);
+    }
+  }, [token]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Modal
@@ -107,8 +117,8 @@ const LandingPage = () => {
         />
       </Modal>
 
-      <Header onApplyClick={() => setIsApplyModalOpen(true)} />
-      <Hero onApplyClick={() => setIsApplyModalOpen(true)} />
+      <Header setIsApplyModalOpen={setIsApplyModalOpen} token={token} />
+      <Hero setIsApplyModalOpen={setIsApplyModalOpen} token={token} />
       <LoanCategories setLoanCategory={setLoanCategory} />
       <LoanCalculator
         loanCategory={loanCategory}

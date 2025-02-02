@@ -24,7 +24,7 @@ const LoanTable = ({ loans, onViewDetails }) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead className="bg-gray-50 ">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Loan Type
@@ -36,7 +36,7 @@ const LoanTable = ({ loans, onViewDetails }) => {
                 Status
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Guarantor Verified
+                Paid Amount
               </th>
 
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -64,16 +64,14 @@ const LoanTable = ({ loans, onViewDetails }) => {
                   <StatusBadge status={loan.status} />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {loan.guarantorVerified ? (
-                    <span className="text-green-600">Verified</span>
-                  ) : (
-                    <span className="text-gray-500">Pending</span>
-                  )}
+                  <span className="text-gray-900 text-base">
+                    {loan?.paidamount ?? "00"}
+                  </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <button
                     onClick={() => onViewDetails(loan)}
-                    className="text-blue-600 hover:text-blue-900 flex items-center"
+                    className="text-blue-600 hover:text-blue-900 flex items-center cursor-pointer"
                   >
                     <Eye className="w-4 h-4 mr-1" />
                     View Details

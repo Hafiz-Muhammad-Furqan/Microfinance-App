@@ -66,7 +66,7 @@ const LoginModal = ({ loginForm, onFormChange, onSubmit, loading }) => {
         </div>
         <button
           type="submit"
-          className="w-full flex items-center justify-center bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out"
+          className="w-full flex items-center justify-center bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out cursor-pointer"
           disabled={loading}
         >
           {loading ? <div className="loader"></div> : "Login"}

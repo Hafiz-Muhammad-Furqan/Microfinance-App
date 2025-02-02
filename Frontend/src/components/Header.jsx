@@ -2,7 +2,7 @@ import React from "react";
 import { Home, CreditCard } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const Header = ({ onApplyClick }) => {
+const Header = ({ token, setIsApplyModalOpen }) => {
   return (
     <header className="fixed top-0 w-full bg-white shadow-sm z-40">
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -36,12 +36,22 @@ const Header = ({ onApplyClick }) => {
           >
             Contact
           </a>
-          <button
-            onClick={onApplyClick}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all cursor-pointer"
-          >
-            Apply Now
-          </button>
+
+          {token ? (
+            <a
+              href="#calculator"
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all cursor-pointer"
+            >
+              Apply Now
+            </a>
+          ) : (
+            <button
+              onClick={() => setIsApplyModalOpen(true)}
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all cursor-pointer"
+            >
+              Apply Now
+            </button>
+          )}
         </div>
       </nav>
     </header>

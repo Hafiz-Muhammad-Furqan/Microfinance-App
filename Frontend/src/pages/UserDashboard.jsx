@@ -69,7 +69,7 @@ const UserDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="w-full flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900 ">UserDashboard</h1>
-          <button className="bg-white text-blue-600 px-4 py-2 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-all">
+          <button className="bg-white text-blue-600 px-4 py-2 rounded-lg text-lg  cursor-pointer font-semibold hover:bg-blue-50 transition-all">
             <Link to={"/"}> Go To Home</Link>
           </button>
         </div>

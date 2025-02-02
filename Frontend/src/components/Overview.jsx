@@ -36,7 +36,7 @@ const Overview = ({ loanStats }) => {
         return (
           <div
             key={stat.title}
-            className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all"
+            className="bg-white cursor-pointer p-6 rounded-lg shadow-md hover:shadow-lg transition-all"
           >
             <div className="flex items-center justify-between mb-4">
               <div className={`p-3 rounded-full bg-${stat.color}-100`}>
