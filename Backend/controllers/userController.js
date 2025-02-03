@@ -10,12 +10,12 @@ const registerUser = async (req, res) => {
 
     const existingUser = await userModel.findOne({ cnic });
     if (existingUser) {
-      return res.status(400).json({ message: "CNIC already exists" });
+      return res.status(400).json({ message: "user already exists" });
     }
 
     const existingEmail = await userModel.findOne({ email });
     if (existingEmail) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res.status(400).json({ message: "user already exists" });
     }
 
     const tempPassword = crypto.randomBytes(8).toString("hex");

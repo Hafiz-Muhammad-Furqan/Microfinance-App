@@ -7,7 +7,8 @@ import axios from "axios";
 import showToast from "../utils/Toast";
 
 const AdminDashboard = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [fetchingRequests, setFetchingRequests] = useState(true);
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const AdminDashboard = () => {
           error?.response?.data?.message || "Error Fetching Requests"
         );
       } finally {
-        setLoading(false);
+        setFetchingRequests(false);
       }
     };
     getApplications();
@@ -62,15 +63,17 @@ const AdminDashboard = () => {
     return matchesSearch && matchesLoanCategory && matchesStatus;
   });
 
-  return loading ? (
+  return fetchingRequests ? (
     <div className="h-screen w-full flex items-center justify-center">
       <div className="loader"></div>
     </div>
   ) : (
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+        <div className="flex flex-col justify-center items-center w-full mb-6 gap-4 lg:flex-row lg:justify-between lg:gap-0 lg:mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 text-center">
+            Admin Dashboard
+          </h1>
           <button
             onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
             className="flex items-center px-4 py-2 bg-white rounded-lg shadow hover:bg-gray-50 cursor-pointer"
@@ -109,6 +112,8 @@ const AdminDashboard = () => {
         <ApplicationDetailsModal
           application={selectedApplication}
           isOpen={isDetailsModalOpen}
+          loading={loading}
+          setLoading={setLoading}
           onClose={() => {
             setIsDetailsModalOpen(false);
             setSelectedApplication(null);

@@ -73,7 +73,7 @@ const loanReject = async (req, res) => {
     const { loanId } = req.body;
     const loanStatus = await loanModel.findByIdAndUpdate(
       loanId,
-      { status: "rejected" },
+      { status: "Rejected" },
       { new: true }
     );
     if (!loanStatus) {

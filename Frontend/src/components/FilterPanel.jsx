@@ -13,8 +13,8 @@ const FilterPanel = ({ filters, onFilterChange, applications }) => {
   ];
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow mb-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="bg-white p-2 lg:p-4 rounded-lg shadow mb-6 w-full flex items-center justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full lg:max-w-[60%] ">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Loan Category
@@ -24,7 +24,7 @@ const FilterPanel = ({ filters, onFilterChange, applications }) => {
             onChange={(e) =>
               onFilterChange({ ...filters, loanCategory: e.target.value })
             }
-            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
           >
             <option value="">All Types</option>
             {loanTypes.map((type) => (
@@ -44,7 +44,7 @@ const FilterPanel = ({ filters, onFilterChange, applications }) => {
             onChange={(e) =>
               onFilterChange({ ...filters, status: e.target.value })
             }
-            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
           >
             <option value="">All Status</option>
             {loanStatus.map((status) => (

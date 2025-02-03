@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Calendar,
   DollarSign,
@@ -9,22 +9,84 @@ import {
   XCircle,
 } from "lucide-react";
 import Modal from "./Modal";
+import axios from "axios";
+import showToast from "../utils/Toast.js";
 
 const ApplicationDetailsModal = ({
   application,
   isOpen,
   onClose,
-  onApprove,
-  onReject,
+  loading,
+  setLoading,
 }) => {
   if (!application) return null;
 
   const renderSection = (title, content) => (
     <div className="mb-6">
       <h3 className="text-lg font-semibold mb-2">{title}</h3>
-      <div className="bg-gray-50 p-4 rounded-lg">{content}</div>
+      <div className="bg-gray-100 p-4  rounded-lg">{content}</div>
     </div>
   );
+
+  const handleAccept = async (id) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/admin/loan-accept`,
+        {
+          loanId: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        onClose();
+        showToast("success", "Loan Application Accepted Successfully!");
+      } else {
+        showToast("error", "Failed to accept loan application.");
+      }
+      setLoading(false);
+    } catch (error) {
+      showToast(
+        "error",
+        error?.response?.data?.message || "Failed to accept loan application."
+      );
+      setLoading(false);
+    }
+  };
+
+  const handleReject = async (id) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/admin/loan-reject`,
+        {
+          loanId: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        onClose();
+        showToast("success", "Loan Application Rejected Successfully!");
+      } else {
+        showToast("error", "Failed to reject loan application.");
+      }
+      setLoading(false);
+    } catch (error) {
+      showToast(
+        "error",
+        error?.response?.data?.message || "Failed to reject loan application."
+      );
+      setLoading(false);
+    }
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -80,82 +142,23 @@ const ApplicationDetailsModal = ({
           </div>
         )}
 
-        {renderSection(
-          "Guarantors",
-          application.guarantors?.length ? (
-            <div className="space-y-4">
-              {application.guarantors.map((guarantor, index) => (
-                <div key={index} className="p-3 bg-white rounded-lg border">
-                  <h4 className="font-medium mb-2">Guarantor {index + 1}</h4>
-                  <div className="space-y-2 text-sm">
-                    <p>
-                      <span className="font-medium">Name:</span>{" "}
-                      {guarantor.name}
-                    </p>
-                    <p>
-                      <span className="font-medium">CNIC:</span>{" "}
-                      {guarantor.cnic}
-                    </p>
-                    <p>
-                      <span className="font-medium">Email:</span>{" "}
-                      {guarantor.email}
-                    </p>
-                    <p>
-                      <span className="font-medium">Location:</span>{" "}
-                      {guarantor.location}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-600">No guarantors provided</p>
-          )
-        )}
-
-        {renderSection(
-          "Documents",
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span>Bank Statement</span>
-              <a
-                href={application.bankStatementUrl || "#"}
-                className="text-blue-600 hover:text-blue-700"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Document
-              </a>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Salary Slip</span>
-              <a
-                href={application.salarySlipUrl || "#"}
-                className="text-blue-600 hover:text-blue-700"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Document
-              </a>
-            </div>
-          </div>
-        )}
-
         {application.status === "Pending" && (
           <div className="flex justify-end space-x-4">
             <button
-              onClick={() => onReject(application.id)}
-              className="flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+              onClick={() => handleReject(application._id)}
+              disabled={loading}
+              className="flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors cursor-pointer"
             >
               <XCircle className="w-5 h-5 mr-2" />
-              Reject
+              {loading ? <div className="loader"></div> : "Reject"}
             </button>
             <button
-              onClick={() => onApprove(application.id)}
-              className="flex items-center px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
+              onClick={() => handleAccept(application._id)}
+              disabled={loading}
+              className="flex items-center px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors cursor-pointer"
             >
               <CheckCircle className="w-5 h-5 mr-2" />
-              Approve
+              {loading ? <div className="loader"></div> : "Accept"}
             </button>
           </div>
         )}

@@ -5,7 +5,7 @@ const LoanTable = ({ loans, onViewDetails }) => {
   const StatusBadge = ({ status }) => {
     const styles = {
       pending: "bg-yellow-100 text-yellow-800",
-      approved: "bg-green-100 text-green-800",
+      accepted: "bg-green-100 text-green-800",
       rejected: "bg-red-100 text-red-800",
     };
 
@@ -71,7 +71,7 @@ const LoanTable = ({ loans, onViewDetails }) => {
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium cursor-pointer">
                   <button
                     onClick={() => onViewDetails(loan)}
-                    className="text-blue-600 hover:text-blue-900 flex items-center "
+                    className="text-blue-600 hover:text-blue-900 flex items-center cursor-pointer"
                   >
                     <Eye className="w-4 h-4 mr-1" />
                     View Details

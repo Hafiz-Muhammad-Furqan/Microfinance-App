@@ -5,7 +5,7 @@ const ApplicationsTable = ({ applications, onViewDetails }) => {
   const StatusBadge = ({ status }) => {
     const styles = {
       Pending: "bg-yellow-100 text-yellow-800",
-      Approved: "bg-green-100 text-green-800",
+      Accepted: "bg-green-100 text-green-800",
       Rejected: "bg-red-100 text-red-800",
     };
 
@@ -21,7 +21,7 @@ const ApplicationsTable = ({ applications, onViewDetails }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow overflow-hidden">
+    <div className="bg-white rounded-lg shadow overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
@@ -64,7 +64,7 @@ const ApplicationsTable = ({ applications, onViewDetails }) => {
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <button
                   onClick={() => onViewDetails(application)}
-                  className="text-blue-600 hover:text-blue-900 flex items-center"
+                  className="text-blue-600 hover:text-blue-900 flex items-center cursor-pointer"
                 >
                   <Eye className="w-4 h-4 mr-1" />
                   View Details

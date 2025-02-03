@@ -17,7 +17,7 @@ const UserDashboard = () => {
       total: loans.length,
       pending: loans.filter((loan) => loan.status.toLowerCase() === "pending")
         .length,
-      approved: loans.filter((loan) => loan.status.toLowerCase() === "accepted")
+      accepted: loans.filter((loan) => loan.status.toLowerCase() === "accepted")
         .length,
       rejected: loans.filter((loan) => loan.status.toLowerCase() === "rejected")
         .length,
@@ -67,8 +67,10 @@ const UserDashboard = () => {
   ) : (
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="w-full flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 ">UserDashboard</h1>
+        <div className="w-full flex flex-col lg:flex-row items-center justify-between mb-6 lg:mb-8 gap-4 lg:gap-0">
+          <h1 className="text-3xl font-bold text-gray-900 text-center">
+            User Dashboard
+          </h1>
           <button className="bg-white text-blue-600 px-4 py-2 rounded-lg text-lg  cursor-pointer font-semibold hover:bg-blue-50 transition-all">
             <Link to={"/"}> Go To Home</Link>
           </button>

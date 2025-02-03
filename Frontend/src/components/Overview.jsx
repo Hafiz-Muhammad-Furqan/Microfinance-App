@@ -17,7 +17,7 @@ const Overview = ({ loanStats }) => {
     },
     {
       title: "Approved",
-      value: loanStats.approved || 0,
+      value: loanStats.accepted || 0,
       icon: CheckCircle,
       color: "green",
     },

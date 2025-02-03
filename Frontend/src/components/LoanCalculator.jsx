@@ -84,7 +84,7 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
               <select
                 value={subCategory}
                 onChange={(e) => setSubCategory(e.target.value)}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
               >
                 <option value="">Select a sub-category</option>
                 {categories[loanCategory]?.map((category) => (
@@ -103,7 +103,7 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
                 type="number"
                 value={loanAmount}
                 onChange={(e) => setLoanAmount(Number(e.target.value))}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
               />
             </div>
 
@@ -115,7 +115,7 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
                 type="number"
                 value={initialAmount}
                 onChange={(e) => setInitialAmount(Number(e.target.value))}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
               />
             </div>
 
@@ -126,7 +126,7 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
               <select
                 value={duration}
                 onChange={(e) => setDuration(Number(e.target.value))}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
               >
                 <option value="1">1 Year</option>
                 <option value="2">2 Years</option>
