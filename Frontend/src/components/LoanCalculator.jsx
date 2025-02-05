@@ -103,7 +103,7 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
                 type="number"
                 value={loanAmount}
                 onChange={(e) => setLoanAmount(Number(e.target.value))}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 "
               />
             </div>
 
@@ -115,7 +115,7 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
                 type="number"
                 value={initialAmount}
                 onChange={(e) => setInitialAmount(Number(e.target.value))}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 

@@ -50,18 +50,23 @@ const getLoanRequests = async (req, res) => {
   }
 };
 
-const loanAccept = async (req, res) => {
+const acceptAndAppointment = async (req, res) => {
   try {
-    const { loanId } = req.body;
-    const loanStatus = await loanModel.findByIdAndUpdate(
+    const { loanId, date, time, location } = req.body;
+    const loan = await loanModel.findByIdAndUpdate(
       loanId,
-      { status: "Accepted" },
+      {
+        status: "Accepted",
+        appointmentDate: date,
+        appointmentLocation: location,
+        appointmentTime: time,
+      },
       { new: true }
     );
-    if (!loanStatus) {
+    if (!loan) {
       return res.status(404).json({ message: "Loan not found" });
     }
-    res.status(200).json(loanStatus);
+    res.status(200).json(loan);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -86,4 +91,10 @@ const loanReject = async (req, res) => {
   }
 };
 
-export { loanAccept, loanReject, getLoanRequests, login, verifyAdmin };
+export {
+  loanReject,
+  getLoanRequests,
+  login,
+  verifyAdmin,
+  acceptAndAppointment,
+};

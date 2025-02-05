@@ -18,6 +18,7 @@ const ApplicationDetailsModal = ({
   onClose,
   loading,
   setLoading,
+  setIsAppointmentModalOpen,
 }) => {
   if (!application) return null;
 
@@ -28,34 +29,9 @@ const ApplicationDetailsModal = ({
     </div>
   );
 
-  const handleAccept = async (id) => {
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/admin/loan-accept`,
-        {
-          loanId: id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        onClose();
-        showToast("success", "Loan Application Accepted Successfully!");
-      } else {
-        showToast("error", "Failed to accept loan application.");
-      }
-      setLoading(false);
-    } catch (error) {
-      showToast(
-        "error",
-        error?.response?.data?.message || "Failed to accept loan application."
-      );
-      setLoading(false);
-    }
+  const handleAccept = async () => {
+    onClose();
+    setIsAppointmentModalOpen(true);
   };
 
   const handleReject = async (id) => {
@@ -153,7 +129,7 @@ const ApplicationDetailsModal = ({
               {loading ? <div className="loader"></div> : "Reject"}
             </button>
             <button
-              onClick={() => handleAccept(application._id)}
+              onClick={handleAccept}
               disabled={loading}
               className="flex items-center px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors cursor-pointer"
             >

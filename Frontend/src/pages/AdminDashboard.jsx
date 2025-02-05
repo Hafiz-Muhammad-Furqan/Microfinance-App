@@ -5,6 +5,7 @@ import ApplicationDetailsModal from "../components/ApplicationDetailsModal";
 import FilterPanel from "../components/FilterPanel";
 import axios from "axios";
 import showToast from "../utils/Toast";
+import AppointmentFormModal from "../components/AppointmentFormModal";
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
@@ -38,6 +39,7 @@ const AdminDashboard = () => {
 
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isAppointmentModalOpen, setIsAppointmentModalOpen] = useState(false);
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [filters, setFilters] = useState({
     loanCategory: "",
@@ -114,8 +116,19 @@ const AdminDashboard = () => {
           isOpen={isDetailsModalOpen}
           loading={loading}
           setLoading={setLoading}
+          setIsAppointmentModalOpen={setIsAppointmentModalOpen}
           onClose={() => {
             setIsDetailsModalOpen(false);
+          }}
+        />
+
+        <AppointmentFormModal
+          application={selectedApplication}
+          isOpen={isAppointmentModalOpen}
+          loading={loading}
+          setLoading={setLoading}
+          onClose={() => {
+            setIsAppointmentModalOpen(false);
             setSelectedApplication(null);
           }}
         />

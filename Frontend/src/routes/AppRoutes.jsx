@@ -5,7 +5,6 @@ import UserDashboard from "../pages/UserDashboard";
 import AdminDashboard from "../pages/AdminDashboard";
 import AdminLogin from "../components/AdminLogin";
 import AdminProtectedRoute from "./AdminProtectedRoute";
-import AppointmentModal from "../components/AppointmentModal";
 
 const router = createBrowserRouter([
   {
@@ -31,10 +30,6 @@ const router = createBrowserRouter([
   {
     path: "/admin/login",
     element: <AdminLogin />,
-  },
-  {
-    path: "/admin/a",
-    element: <AppointmentModal />,
   },
 ]);
 const AppRoutes = () => {

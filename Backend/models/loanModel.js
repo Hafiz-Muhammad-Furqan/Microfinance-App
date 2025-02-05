@@ -36,6 +36,21 @@ const loanSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  appointmentDate: {
+    type: Date,
+    required: false,
+    default: null,
+  },
+  appointmentTime: {
+    type: String,
+    required: false,
+    default: null,
+  },
+  appointmentLocation: {
+    type: String,
+    required: false,
+    default: null,
+  },
 });
 
 const loanModel = mongoose.model("Loan", loanSchema);

@@ -1,7 +1,7 @@
 import React from "react";
-import { Eye } from "lucide-react";
+import { Eye, File } from "lucide-react";
 
-const LoanTable = ({ loans, onViewDetails }) => {
+const LoanTable = ({ loans, onViewDetails, onViewAppointment }) => {
   const StatusBadge = ({ status }) => {
     const styles = {
       pending: "bg-yellow-100 text-yellow-800",
@@ -38,7 +38,9 @@ const LoanTable = ({ loans, onViewDetails }) => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Paid Amount
               </th>
-
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Appointment
+              </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Actions
               </th>
@@ -67,6 +69,15 @@ const LoanTable = ({ loans, onViewDetails }) => {
                   <span className="text-gray-900 text-base">
                     {loan?.paidamount ?? "00"}
                   </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium cursor-pointer">
+                  <button
+                    onClick={() => onViewAppointment(loan)}
+                    className="text-blue-600 hover:text-blue-900 flex items-center cursor-pointer"
+                  >
+                    <File className="w-4 h-4 mr-1" />
+                    View Appointment
+                  </button>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium cursor-pointer">
                   <button

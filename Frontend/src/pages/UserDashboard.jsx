@@ -5,12 +5,14 @@ import showToast from "../utils/Toast";
 import axios from "axios";
 import LoanDetailsModal from "../components/LoanDetailsModal";
 import { Link } from "react-router-dom";
+import AppointmentDetailsModal from "../components/AppointmentDetailsModal";
 
 const UserDashboard = () => {
   const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedLoan, setSelectedLoan] = useState(null);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isAppointmentModalOpen, setIsAppointmentModalOpen] = useState(false);
 
   const loanStats = useMemo(
     () => ({
@@ -28,6 +30,10 @@ const UserDashboard = () => {
   const handleViewDetails = (loan) => {
     setSelectedLoan(loan);
     setIsDetailsModalOpen(true);
+  };
+  const handleAppointmentDetails = (loan) => {
+    setSelectedLoan(loan);
+    setIsAppointmentModalOpen(true);
   };
 
   const handleCloseDetailsModal = () => {
@@ -82,13 +88,25 @@ const UserDashboard = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               Loan Applications
             </h2>
-            <LoanTable loans={loans} onViewDetails={handleViewDetails} />
+            <LoanTable
+              loans={loans}
+              onViewDetails={handleViewDetails}
+              onViewAppointment={handleAppointmentDetails}
+            />
           </section>
         </div>
         <LoanDetailsModal
           loan={selectedLoan}
           isOpen={isDetailsModalOpen}
           onClose={handleCloseDetailsModal}
+        />
+        <AppointmentDetailsModal
+          isOpen={isAppointmentModalOpen}
+          onClose={() => {
+            setIsAppointmentModalOpen(false);
+            setSelectedLoan(null);
+          }}
+          loan={selectedLoan}
         />
       </div>
     </div>
