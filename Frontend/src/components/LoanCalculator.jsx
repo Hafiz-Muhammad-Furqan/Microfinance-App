@@ -8,7 +8,7 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
   const [loanAmount, setLoanAmount] = useState("");
   const [subCategory, setSubCategory] = useState("");
   const [initialAmount, setInitialAmount] = useState("");
-  const [duration, setDuration] = useState(12);
+  const [duration, setDuration] = useState("");
   const [emi, setEmi] = useState(0);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -20,9 +20,14 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
   };
 
   useEffect(() => {
-    if (loanAmount && initialAmount && duration) {
-      const loanRemaining = loanAmount - initialAmount;
-      setEmi(Math.round(loanRemaining / duration));
+    const loanRemaining = Math.max(loanAmount - initialAmount);
+    console.log(duration);
+
+    const months = duration * 12;
+    console.log(months);
+
+    if (loanRemaining > 0 && months > 0) {
+      setEmi(Math.round(loanRemaining / months));
     } else {
       setEmi(0);
     }
@@ -128,6 +133,7 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
                 onChange={(e) => setDuration(Number(e.target.value))}
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
               >
+                <option value="">Select Duration</option>
                 <option value="1">1 Year</option>
                 <option value="2">2 Years</option>
                 <option value="3">3 Years</option>

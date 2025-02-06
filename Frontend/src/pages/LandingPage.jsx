@@ -18,22 +18,21 @@ const LandingPage = () => {
   const [loanCategory, setLoanCategory] = useState("Business");
   const [loading, setLoading] = useState(false);
   const [applicationForm, setApplicationForm] = useState({
-    cnic: "",
     email: "",
     fullname: "",
+    password: "",
   });
   const [loginForm, setLoginForm] = useState({
-    cnic: "",
-    recievedPassword: "",
-    newPassword: "",
+    email: "",
+    password: "",
   });
   const { setUser } = useAuth();
 
   const handleApplySubmit = async (e) => {
     e.preventDefault();
-    const { cnic, email, fullname } = applicationForm;
-    if (!cnic || !email || !fullname) {
-      showToast("error", "Please fill all    fields");
+    const { email, fullname, password } = applicationForm;
+    if (!email || !fullname || !password) {
+      showToast("error", "Please fill all  ields");
     }
     setLoading(true);
 
@@ -42,14 +41,11 @@ const LandingPage = () => {
         `${import.meta.env.VITE_API_BASE_URL}/user/signup`,
         applicationForm
       );
-      setUser(response.data);
+      setUser(response.data.user);
+      localStorage.setItem("token", response.data.token);
       setLoading(false);
       setIsApplyModalOpen(false);
-      showToast(
-        "success",
-        "We've sent your password to your email. Please copy it and enter it in the 'Received Password' field."
-      );
-      setIsLoginModalOpen(true);
+      showToast("success", "You can now submit a loan request.");
     } catch (error) {
       const errorMsg = error?.response?.data?.message || "Something went wrong";
       showToast("error", errorMsg);
@@ -60,8 +56,8 @@ const LandingPage = () => {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    const { cnic, newPassword, recievedPassword } = loginForm;
-    if (!cnic || !newPassword || !recievedPassword) {
+    const { password, email } = loginForm;
+    if (!password || !email) {
       showToast("error", "Please fill all fields");
     }
     setLoading(true);
@@ -102,6 +98,8 @@ const LandingPage = () => {
           setApplicationForm={setApplicationForm}
           onSubmit={handleApplySubmit}
           loading={loading}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsApplyModalOpen={setIsApplyModalOpen}
         />
       </Modal>
 
@@ -114,6 +112,8 @@ const LandingPage = () => {
           onFormChange={setLoginForm}
           onSubmit={handleLoginSubmit}
           loading={loading}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsApplyModalOpen={setIsApplyModalOpen}
         />
       </Modal>
 

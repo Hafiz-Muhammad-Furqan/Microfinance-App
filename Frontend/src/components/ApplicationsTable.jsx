@@ -40,38 +40,46 @@ const ApplicationsTable = ({ applications, onViewDetails }) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {applications.map((application) => (
-            <tr key={application._id} className="hover:bg-gray-50">
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm font-medium text-gray-900">
-                  {application.user.fullname}
-                </div>
-                <div className="text-sm text-gray-500">
-                  {application.user.cnic}
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-900">
-                  {application.loanCategory} - {application.subCategory}
-                </div>
-                <div className="text-sm text-gray-500">
-                  PKR {application.loanAmount.toLocaleString()}
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <StatusBadge status={application.status} />
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <button
-                  onClick={() => onViewDetails(application)}
-                  className="text-blue-600 hover:text-blue-900 flex items-center cursor-pointer"
-                >
-                  <Eye className="w-4 h-4 mr-1" />
-                  View Details
-                </button>
+          {applications.length === 0 ? (
+            <tr className="text-center">
+              <td colSpan="3" className="py-6 font-semibold lg:text-2xl">
+                No applications available. Check back later!"
               </td>
             </tr>
-          ))}
+          ) : (
+            applications.map((application) => (
+              <tr key={application._id} className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">
+                    {application.user.fullname}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {application.user.cnic}
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-900">
+                    {application.loanCategory} - {application.subCategory}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    PKR {application.loanAmount.toLocaleString()}
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <StatusBadge status={application.status} />
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <button
+                    onClick={() => onViewDetails(application)}
+                    className="text-blue-600 hover:text-blue-900 flex items-center cursor-pointer"
+                  >
+                    <Eye className="w-4 h-4 mr-1" />
+                    View Details
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

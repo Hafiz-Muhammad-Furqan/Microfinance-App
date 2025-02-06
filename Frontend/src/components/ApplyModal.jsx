@@ -1,10 +1,12 @@
-import { User, Mail } from "lucide-react";
+import { User, Mail, Lock } from "lucide-react";
 
 const ApplyModal = ({
   applicationForm,
   setApplicationForm,
   onSubmit,
   loading,
+  setIsLoginModalOpen,
+  setIsApplyModalOpen,
 }) => {
   return (
     <div>
@@ -36,25 +38,6 @@ const ApplyModal = ({
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            CNIC Number
-          </label>
-          <div className="relative">
-            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Enter CNIC (e.g., 42201-1234567-8)"
-              className="pl-10 w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              value={applicationForm.cnic}
-              onChange={(e) =>
-                setApplicationForm({ ...applicationForm, cnic: e.target.value })
-              }
-              required
-              pattern="^\d{5}-\d{7}-\d{1}$"
-            />
-          </div>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
             Email Address
           </label>
           <div className="relative">
@@ -74,7 +57,41 @@ const ApplyModal = ({
             />
           </div>
         </div>
-
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Password
+          </label>
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="password"
+              placeholder="Enter your Password"
+              className="pl-10 w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              value={applicationForm.password}
+              onChange={(e) =>
+                setApplicationForm({
+                  ...applicationForm,
+                  password: e.target.value,
+                })
+              }
+              required
+            />
+          </div>
+        </div>
+        <div>
+          <p className="font-medium">
+            Already have an Account?{"  "}
+            <span
+              className="text-blue-700 underline cursor-pointer"
+              onClick={() => {
+                setIsLoginModalOpen(true);
+                setIsApplyModalOpen(false);
+              }}
+            >
+              Login
+            </span>
+          </p>
+        </div>
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center cursor-pointer"

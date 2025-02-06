@@ -1,7 +1,14 @@
 import React from "react";
 import { Lock, User } from "lucide-react";
 
-const LoginModal = ({ loginForm, onFormChange, onSubmit, loading }) => {
+const LoginModal = ({
+  loginForm,
+  onFormChange,
+  onSubmit,
+  loading,
+  setIsApplyModalOpen,
+  setIsLoginModalOpen,
+}) => {
   return (
     <div>
       <div className="text-center mb-6">
@@ -11,36 +18,17 @@ const LoginModal = ({ loginForm, onFormChange, onSubmit, loading }) => {
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            CNIC
+            Email Address
           </label>
           <div className="relative">
             <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="text"
-              placeholder="Enter CNIC (e.g., 42201-1234567-8)"
+              placeholder="Enter your Email"
               className="pl-10 w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              value={loginForm.cnic}
+              value={loginForm.email}
               onChange={(e) =>
-                onFormChange({ ...loginForm, cnic: e.target.value })
-              }
-              pattern="^\d{5}-\d{7}-\d{1}$"
-              required
-            />
-          </div>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Recieved Password
-          </label>
-          <div className="relative">
-            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="password"
-              placeholder="Enter your recieved password"
-              className="pl-10 w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              value={loginForm.recievedPassword}
-              onChange={(e) =>
-                onFormChange({ ...loginForm, recievedPassword: e.target.value })
+                onFormChange({ ...loginForm, email: e.target.value })
               }
               required
             />
@@ -48,21 +36,35 @@ const LoginModal = ({ loginForm, onFormChange, onSubmit, loading }) => {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            New Password
+            Password
           </label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="password"
-              placeholder="Enter your new password"
+              placeholder="Enter your password"
               className="pl-10 w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              value={loginForm.newPassword}
+              value={loginForm.password}
               onChange={(e) =>
-                onFormChange({ ...loginForm, newPassword: e.target.value })
+                onFormChange({ ...loginForm, password: e.target.value })
               }
               required
             />
           </div>
+        </div>
+        <div>
+          <p className="font-medium">
+            Dont have an Account?{"  "}
+            <span
+              className="text-blue-700 underline cursor-pointer"
+              onClick={() => {
+                setIsLoginModalOpen(false);
+                setIsApplyModalOpen(true);
+              }}
+            >
+              Sign up
+            </span>
+          </p>
         </div>
         <button
           type="submit"

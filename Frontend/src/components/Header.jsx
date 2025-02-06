@@ -8,7 +8,7 @@ const Header = ({ token, setIsApplyModalOpen }) => {
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <CreditCard className="w-8 h-8 text-blue-600" />
-          <span className="text-xl font-bold">Saylani Welfare</span>
+          <span className="text-xl font-bold">QuickLoan</span>
         </div>
 
         <div className="hidden md:flex items-center space-x-8">
