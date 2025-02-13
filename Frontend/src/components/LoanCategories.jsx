@@ -45,7 +45,7 @@ const LoanCategories = ({ setLoanCategory }) => {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow h-full"
+              className="bg-white py-6 px-3 rounded-xl shadow-lg hover:shadow-xl transition-shadow h-full"
             >
               <div className="text-center flex items-center justify-between flex-col h-full">
                 {category.icon}

@@ -75,10 +75,12 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
   return (
     <section className="py-16 px-4 bg-gray-100" id="calculator">
       <div className="container mx-auto">
-        <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-4">
           <div className="flex items-center justify-center mb-6">
-            <Calculator className="w-8 h-8 text-blue-600 mr-2" />
-            <h2 className="text-3xl font-bold">Loan Calculator</h2>
+            <Calculator className="w-8 h-8 text-blue-600 mr-2 hidden md:block" />
+            <h2 className="md:text-3xl text-2xl font-bold text-center">
+              Loan Calculator
+            </h2>
           </div>
 
           <div className="space-y-6">

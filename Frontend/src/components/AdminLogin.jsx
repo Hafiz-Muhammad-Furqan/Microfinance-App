@@ -40,7 +40,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="h-screen w-full flex items-center justify-center">
+    <div className="h-screen w-full flex items-center justify-center px-2">
       <div className="w-sm">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Welcome </h2>

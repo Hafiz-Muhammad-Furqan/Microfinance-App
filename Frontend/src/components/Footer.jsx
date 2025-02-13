@@ -36,7 +36,7 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-2">
               <li>Phone: +92 123 4567890</li>
-              <li>Email: info@saylani.org</li>
+              <li>Email: info@QuickLoan.org</li>
               <li>Address: Karachi, Pakistan</li>
             </ul>
           </div>
@@ -72,7 +72,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p>&copy; 2024 Saylani Welfare. All rights reserved.</p>
+          <p>&copy; © 2024 QuickLoan. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

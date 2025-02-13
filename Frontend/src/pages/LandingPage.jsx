@@ -13,7 +13,7 @@ import { useAuth } from "../context/UserContext";
 
 const LandingPage = () => {
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState("");
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [loanCategory, setLoanCategory] = useState("Business");
   const [loading, setLoading] = useState(false);
@@ -43,6 +43,7 @@ const LandingPage = () => {
       );
       setUser(response.data.user);
       localStorage.setItem("token", response.data.token);
+      setToken(response.data.token);
       setLoading(false);
       setIsApplyModalOpen(false);
       showToast("success", "You can now submit a loan request.");
@@ -68,6 +69,7 @@ const LandingPage = () => {
       );
       setUser(response.data.user);
       localStorage.setItem("token", response.data.token);
+      setToken(response.data.token);
       setLoading(false);
       setIsLoginModalOpen(false);
       showToast("success", "You can now submit a loan request.");
@@ -80,6 +82,8 @@ const LandingPage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log("chala");
+
     if (token) {
       setToken(token);
     } else {
