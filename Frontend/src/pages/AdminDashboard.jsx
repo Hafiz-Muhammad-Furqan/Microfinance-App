@@ -53,10 +53,9 @@ const AdminDashboard = () => {
   };
 
   const filteredApplications = applications.filter((app) => {
-    const matchesSearch =
-      app.user.fullname.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      app.user.cnic.includes(searchQuery);
-
+    const matchesSearch = app.user.fullname
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     const matchesLoanCategory =
       !filters.loanCategory || app.loanCategory === filters.loanCategory;
 
@@ -90,7 +89,7 @@ const AdminDashboard = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="text"
-              placeholder="Search by name or CNIC"
+              placeholder="Search by Name "
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
