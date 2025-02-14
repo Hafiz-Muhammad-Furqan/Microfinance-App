@@ -35,7 +35,6 @@ const AdminLogin = () => {
         error?.response?.data?.message || "Something went wrong"
       );
       setLoading(false);
-      console.log(error.message);
     }
   };
 

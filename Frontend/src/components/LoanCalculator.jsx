@@ -21,10 +21,8 @@ const LoanCalculator = ({ loanCategory, setIsApplyModalOpen }) => {
 
   useEffect(() => {
     const loanRemaining = Math.max(loanAmount - initialAmount);
-    console.log(duration);
 
     const months = duration * 12;
-    console.log(months);
 
     if (loanRemaining > 0 && months > 0) {
       setEmi(Math.round(loanRemaining / months));

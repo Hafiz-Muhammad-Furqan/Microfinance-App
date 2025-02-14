@@ -51,7 +51,6 @@ const LandingPage = () => {
       const errorMsg = error?.response?.data?.message || "Something went wrong";
       showToast("error", errorMsg);
       setLoading(false);
-      console.log(error.message);
     }
   };
 
@@ -82,7 +81,6 @@ const LandingPage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("chala");
 
     if (token) {
       setToken(token);

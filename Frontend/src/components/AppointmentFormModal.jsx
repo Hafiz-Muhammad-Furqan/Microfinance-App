@@ -54,7 +54,6 @@ const AppointmentFormModal = ({
       setLoading(false);
       setAppointmentData({ date: "", time: "", location: "" });
     } catch (error) {
-      console.log(error);
       showToast(
         "error",
         error?.response?.data?.message ||
