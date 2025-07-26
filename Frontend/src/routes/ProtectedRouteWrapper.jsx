@@ -24,12 +24,14 @@ const ProtectedRouteWrapper = ({ children }) => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
+
         setUser(response.data);
       } catch (error) {
         console.error(
           "Error fetching profile:",
           error?.response?.data?.message
         );
+        localStorage.removeItem("token");
         navigate("/", { replace: true });
       } finally {
         setIsLoading(false);

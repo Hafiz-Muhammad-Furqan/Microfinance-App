@@ -42,7 +42,7 @@ const ApplicationsTable = ({ applications, onViewDetails }) => {
         <tbody className="bg-white divide-y divide-gray-200">
           {applications.length === 0 ? (
             <tr className="text-center">
-              <td colSpan="3" className="py-6 font-semibold lg:text-2xl">
+              <td colSpan="4" className="py-6 font-semibold lg:text-xl">
                 No applications available. Check back later!"
               </td>
             </tr>

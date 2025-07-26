@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Filter, Search } from "lucide-react";
 import ApplicationsTable from "../components/ApplicationsTable";
 import ApplicationDetailsModal from "../components/ApplicationDetailsModal";
@@ -6,36 +6,53 @@ import FilterPanel from "../components/FilterPanel";
 import axios from "axios";
 import showToast from "../utils/Toast";
 import AppointmentFormModal from "../components/AppointmentFormModal";
+import Overview from "../components/Overview";
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [fetchingRequests, setFetchingRequests] = useState(true);
   const [applications, setApplications] = useState([]);
+  const getApplications = async () => {
+    const token = localStorage.getItem("adminToken");
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/admin/loan-requests`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setApplications(response.data);
+    } catch (error) {
+      showToast(
+        "error",
+        error?.response?.data?.message || "Error Fetching Requests"
+      );
+    } finally {
+      setFetchingRequests(false);
+    }
+  };
 
   useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    const getApplications = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/admin/loan-requests`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setApplications(response.data);
-      } catch (error) {
-        showToast(
-          "error",
-          error?.response?.data?.message || "Error Fetching Requests"
-        );
-      } finally {
-        setFetchingRequests(false);
-      }
-    };
     getApplications();
   }, []);
+
+  const loanStats = useMemo(
+    () => ({
+      total: applications.length,
+      pending: applications.filter(
+        (loan) => loan.status.toLowerCase() === "pending"
+      ).length,
+      accepted: applications.filter(
+        (loan) => loan.status.toLowerCase() === "accepted"
+      ).length,
+      rejected: applications.filter(
+        (loan) => loan.status.toLowerCase() === "rejected"
+      ).length,
+    }),
+    [applications]
+  );
 
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
@@ -44,6 +61,7 @@ const AdminDashboard = () => {
   const [filters, setFilters] = useState({
     loanCategory: "",
     status: "",
+    sortBy: "",
   });
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -52,17 +70,32 @@ const AdminDashboard = () => {
     setIsDetailsModalOpen(true);
   };
 
-  const filteredApplications = applications.filter((app) => {
-    const matchesSearch = app.user.fullname
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    const matchesLoanCategory =
-      !filters.loanCategory || app.loanCategory === filters.loanCategory;
-
-    const matchesStatus = !filters.status || app.status === filters.status;
-
-    return matchesSearch && matchesLoanCategory && matchesStatus;
-  });
+  const filteredApplications = applications
+    .filter((app) => {
+      const matchesSearch = app.user.fullname
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const matchesLoanCategory =
+        !filters.loanCategory || app.loanCategory === filters.loanCategory;
+      const matchesStatus = !filters.status || app.status === filters.status;
+      return matchesSearch && matchesLoanCategory && matchesStatus;
+    })
+    .sort((a, b) => {
+      switch (filters.sortBy) {
+        case "lowToHigh":
+          return a.loanAmount - b.loanAmount;
+        case "highToLow":
+          return b.loanAmount - a.loanAmount;
+        case "newest":
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        case "oldest":
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        case "aToZ":
+          return a.user.fullname.localeCompare(b.user.fullname);
+        default:
+          return 0;
+      }
+    });
 
   return fetchingRequests ? (
     <div className="h-screen w-full flex items-center justify-center">
@@ -75,6 +108,13 @@ const AdminDashboard = () => {
           <h1 className="text-3xl font-bold text-gray-900 text-center">
             Admin Dashboard
           </h1>
+        </div>
+        <Overview loanStats={loanStats} />
+
+        <div className="flex flex-col justify-center items-center w-full mb-6 mt-10 gap-4 lg:flex-row lg:justify-between lg:gap-0 lg:mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 text-center">
+            Loan Applications
+          </h1>
           <button
             onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
             className="flex items-center px-4 py-2 bg-white rounded-lg shadow hover:bg-gray-50 cursor-pointer"
@@ -83,7 +123,6 @@ const AdminDashboard = () => {
             Filters
           </button>
         </div>
-
         <div className="mb-6">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -119,9 +158,11 @@ const AdminDashboard = () => {
           onClose={() => {
             setIsDetailsModalOpen(false);
           }}
+          getApplications={getApplications}
         />
 
         <AppointmentFormModal
+          getApplications={getApplications}
           application={selectedApplication}
           isOpen={isAppointmentModalOpen}
           loading={loading}

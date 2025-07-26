@@ -17,6 +17,7 @@ const AppointmentFormModal = ({
   onClose,
   loading,
   setLoading,
+  getApplications,
 }) => {
   const [appointmentData, setAppointmentData] = useState({
     date: "",
@@ -53,6 +54,7 @@ const AppointmentFormModal = ({
       showToast("success", "Appointment Scheduled Successfully");
       setLoading(false);
       setAppointmentData({ date: "", time: "", location: "" });
+      getApplications();
     } catch (error) {
       showToast(
         "error",

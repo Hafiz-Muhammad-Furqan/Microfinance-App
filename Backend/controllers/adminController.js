@@ -24,6 +24,7 @@ const verifyAdmin = async (req, res) => {
 const getLoanRequests = async (req, res) => {
   try {
     const loans = await loanModel.find().populate("user");
+    console.log(loans);
 
     if (loans.length === 0) {
       return res.status(404).json({ message: "No loans found" });

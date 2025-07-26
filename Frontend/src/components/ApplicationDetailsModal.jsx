@@ -19,6 +19,7 @@ const ApplicationDetailsModal = ({
   loading,
   setLoading,
   setIsAppointmentModalOpen,
+  getApplications,
 }) => {
   if (!application) return null;
 
@@ -51,6 +52,7 @@ const ApplicationDetailsModal = ({
       if (response.status === 200) {
         onClose();
         showToast("success", "Loan Application Rejected Successfully!");
+        getApplications();
       } else {
         showToast("error", "Failed to reject loan application.");
       }
@@ -87,8 +89,8 @@ const ApplicationDetailsModal = ({
             <div className="flex items-center">
               <FileText className="w-5 h-5 text-gray-400 mr-2" />
               <div>
-                <p className="font-medium">CNIC</p>
-                <p className="text-gray-600">{application.user.cnic}</p>
+                <p className="font-medium">Email</p>
+                <p className="text-gray-600">{application.user.email}</p>
               </div>
             </div>
           </div>
